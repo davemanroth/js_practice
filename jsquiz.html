@@ -10,9 +10,7 @@
 			<ol id="answers">
 				
 			</ol>
-			<ol>
-				<li><input type="radio" name="text">test</input></li>
-			</ol>
+			<button>Next question</button>
 		</div>
 	</body>
 	<script>
@@ -38,19 +36,25 @@
 				correct: "red",
 			}
 		]
-		var ques = document.getElementById('question');
-		var ans = document.getElementById('answers');
-		ques.innerHTML = questions[0].question;
+		function loadQuiz(){
+			var ques = document.getElementById('question');
+			var ans = document.getElementById('answers');
+			ques.innerHTML = questions[0].question;
 
-		questions[0].answers.forEach(function(a){
-			var li = document.createElement('li');
-			 var inp = document.createElement('input');
-			 inp.type = 'radio';
-			 inp.name = 'choices';
-			 inp.value = a;
-			 li.appendChild(inp);
-			 ans.appendChild(li);
-		 });
+			questions[0].answers.forEach(function(a){
+				var li = document.createElement('li');
+				var label = document.createElement('label');
+				 var inp = document.createElement('input');
+				 inp.type = 'radio';
+				 inp.name = 'choices';
+				 inp.id = a;
+				 label.innerHTML = a;
+				 li.appendChild(inp);
+				 li.appendChild(label);
+				 ans.appendChild(li);
+			 });
+	 }
+	 loadQuiz();
 
 
 	</script>
