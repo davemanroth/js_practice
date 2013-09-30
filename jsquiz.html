@@ -11,6 +11,8 @@
 				
 			</ol>
 			<button>Next question</button>
+			<input id="num" type="hidden" value="0" />
+			<input id="score" type="hidden" value="0" />
 		</div>
 	</body>
 	<script>
@@ -34,14 +36,18 @@
 				question: "What color dress is traditionally worn by an Indian bride?",
 				answers: ["red", "white", "pink", "yellow"],
 				correct: "red",
-			}
+			},
 		]
-		function loadQuiz(){
-			var ques = document.getElementById('question');
-			var ans = document.getElementById('answers');
-			ques.innerHTML = questions[0].question;
 
-			questions[0].answers.forEach(function(a){
+		function loadQuiz(score, quesNum){
+			var ques = document.getElementById('question');
+			var quesNum = parseInt(document.getElementById('num').value);
+			var score = document.getElementById('score');
+			var ans = document.getElementById('answers');
+
+			ques.innerHTML = questions[quesNum].question;
+
+			questions[quesNum].answers.forEach(function(a){
 				var li = document.createElement('li');
 				var label = document.createElement('label');
 				 var inp = document.createElement('input');
@@ -54,7 +60,7 @@
 				 ans.appendChild(li);
 			 });
 	 }
-	 loadQuiz();
+	 loadQuiz(0, 0);
 
 
 	</script>
