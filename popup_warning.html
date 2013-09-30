@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Test pop up message with cookie storage</title>
+		<style>
+			body{font-family:Verdana, Arial, sans-serif}
+			#popup{position:absolute; width:50%; border:#333 3px solid; background:#eee; padding:5px 30px 15px 30px; top:100px; left:3000000px;}
+			#understood, #clearCookie{font-size:1em;}
+			#understood{float:right;} 
+		</style>
+	</head>
+	<body>
+		<div id="popup">
+			<h1>Warning! Unsupported browser!</h1>
+			<p>
+				You are using a browser that is not able to properly render this page content.
+				Please download the latest version of <a href="#">IE,</a> <a href="#">Firefox,</a> or <a href="#">Chrome.</a>
+			</p>
+			<button id="understood">Ok, I get it</button>
+		</div>
+		<h1>Page title</h1>
+		<p>Page copy</p>
+		<button id="clearCookie">Clear cookie</button>
+	</body>
+	<script>
+		var cookieVal = document.cookie.split('=');
+		var clear = document.getElementById('clearCookie');
+		cookieVal = cookieVal[1];
+		clear.onclick = function(){
+			document.cookie = 'understood=no';
+		};
+
+		if(cookieVal != 'yes'){
+			var popup = document.getElementById('popup');
+			var horiz = Math.floor((window.innerWidth / 2) - (popup.offsetWidth / 2));
+			var button = document.getElementById('understood');
+			popup.style.left = horiz + 'px';
+			button.onclick = function(){
+				popup.remove();
+				document.cookie = 'understood=yes';
+			};
+		}
+	</script>
+</html>

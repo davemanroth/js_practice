@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Browser resizing practice</title>
+	</head>
+	<body>
+		<style>
+			body{margin:0; padding:0; background:#999; color:#ddd;}
+			#wrapper{width:80%; margin:0 auto; background:#fff; display:block; padding:50px;}
+			#content{width:50%; background:#333; margin:100px auto 0 auto; padding:10px 20px; text-align:center;}
+		</style>
+		
+		<div id="wrapper">
+			<div id="content">
+				<h1>This title should get resized</h1>
+				<div id="textblock">
+					<p>This block of text should also get resized</p>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		var content = document.getElementById('content');
+
+		window.onresize = function(){
+			var currWidth = window.innerWidth;
+			var newWidth = window.innerWidth;
+			var currHeight = content.offsetHeight;
+			content.style.height = ( (currWidth > newWidth)  ? (currHeight - 21) : (currHeight - 19) ) + 'px';
+			console.log(content.offsetHeight);
+		}
+	</script>
+</html>
