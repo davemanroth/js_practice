@@ -10,9 +10,7 @@
 			<ol id="answers">
 				
 			</ol>
-			<button>Next question</button>
-			<input id="num" type="hidden" value="0" />
-			<input id="score" type="hidden" value="0" />
+			<button id="button">Next question</button>
 		</div>
 	</body>
 	<script>
@@ -37,30 +35,65 @@
 				answers: ["red", "white", "pink", "yellow"],
 				correct: "red",
 			},
-		]
+		];
+	 var controls = quizControls();
+	 loadQuiz(controls.getNum());
+	 controls.element("button").onclick = function(){
+		 // resposeEval();
+		 controls.nextQues();
+		 loadQuiz(controls.getNum());
+	 }
 
-		function loadQuiz(score, quesNum){
+		function quizControls(){
+			var score = 0;
+			var quesNum = 0;
 			var ques = document.getElementById('question');
-			var quesNum = parseInt(document.getElementById('num').value);
-			var score = document.getElementById('score');
 			var ans = document.getElementById('answers');
+			var button = document.getElementById('button');
+			{
+				getScore: function(){
+					return score;
+				},
+				getNum: function(){
+					return quesNum;
+				},
+				setScore: function(newScore){
+					score = newScore;
+				},
+				nextQues: function(){
+					++quesNum;
+				},
+				element: function(el){
+					switch(el){
+						case "ques":
+							return ques;
+						case "ans":
+							return ans;
+						case "button":
+							return button;;
+					}
+				},
+			};
+		}
 
+		function loadQuiz(quesNum){
+			var ques = controls.element("ques");
+			var ans = controls.element("ans");
 			ques.innerHTML = questions[quesNum].question;
 
 			questions[quesNum].answers.forEach(function(a){
 				var li = document.createElement('li');
 				var label = document.createElement('label');
-				 var inp = document.createElement('input');
-				 inp.type = 'radio';
-				 inp.name = 'choices';
-				 inp.id = a;
-				 label.innerHTML = a;
-				 li.appendChild(inp);
-				 li.appendChild(label);
-				 ans.appendChild(li);
-			 });
+				var inp = document.createElement('input');
+				inp.type = 'radio';
+				inp.name = 'choices';
+				inp.id = a;
+				label.innerHTML = a;
+				li.appendChild(inp);
+				li.appendChild(label);
+				ans.appendChild(li);
+			});
 	 }
-	 loadQuiz(0, 0);
 
 
 	</script>
