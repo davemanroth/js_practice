@@ -41,6 +41,7 @@
 	 controls.element("button").onclick = function(){
 		 // resposeEval();
 		 controls.nextQues();
+		 controls.clearScreen();
 		 loadQuiz(controls.getNum());
 	 }
 
@@ -50,7 +51,7 @@
 			var ques = document.getElementById('question');
 			var ans = document.getElementById('answers');
 			var button = document.getElementById('button');
-			{
+			return{
 				getScore: function(){
 					return score;
 				},
@@ -62,6 +63,11 @@
 				},
 				nextQues: function(){
 					++quesNum;
+				},
+				clearScreen: function(){
+					for(cn in ans.childNodes){
+						ans.removeChild(ans.lastChild);
+					}
 				},
 				element: function(el){
 					switch(el){
