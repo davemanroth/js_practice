@@ -2,6 +2,18 @@
 <html>
 	<head>
 		<title>A quiz to get familiar with JavaScript</title>
+		<style>
+			body{margin:0; padding:0; font-family:Arial, Helvetica, sans-serif;}
+			#questionModule{
+				display:block; padding:20px 35px; margin:40px auto 0 auto; width:30%;
+				background:#ffe81c;
+				border-radius:15px;
+				-moz-border-radius:15px;
+				-webkit-border-radius:15px;
+			}
+			#button{float:right;}
+			.clr{clear:both;}
+		</style>
 	</head>
 	<body>
 		<div id="questionModule">
@@ -11,6 +23,7 @@
 				
 			</ol>
 			<button id="button">Next question</button>
+			<div class="clr"></div>
 		</div>
 	</body>
 	<script>
@@ -39,10 +52,18 @@
 	 var controls = quizControls();
 	 loadQuiz(controls.getNum());
 	 controls.element("button").onclick = function(){
-		 // resposeEval();
+		 var correct = questions[controls.getNum()].correct;
+		 var chosen = controls.findChoice();
+		 evaluate(chosen, correct);
 		 controls.nextQues();
 		 controls.clearScreen();
 		 loadQuiz(controls.getNum());
+	 }
+	 
+	 function evaluate(chosen, correct){
+		 if(chosen === correct){
+			 controls.increaseScore();
+		 }
 	 }
 
 		function quizControls(){
@@ -58,8 +79,8 @@
 				getNum: function(){
 					return quesNum;
 				},
-				setScore: function(newScore){
-					score = newScore;
+				increaseScore: function(){
+					++score;
 				},
 				nextQues: function(){
 					++quesNum;
@@ -67,6 +88,14 @@
 				clearScreen: function(){
 					for(cn in ans.childNodes){
 						ans.removeChild(ans.lastChild);
+					}
+				},
+				findChoice: function(){
+					var choices = document.getElementsByTagName('input');
+					for(var i = 0; i < choices.length; i++){
+						if(choices[i].checked){
+							return choices[i].id;
+						}
 					}
 				},
 				element: function(el){
